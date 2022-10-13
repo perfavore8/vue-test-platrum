@@ -20,15 +20,6 @@
           <lable class="grid-cell phone">{{ user.phoneNumber }}</lable>
         </li>
       </ul>
-      <div>123</div>
-      <ul class="list">
-        <li class="item" v-for="user in userList" :key="user">
-          <lable class="grid-cell name" :style="{ width: user.width }">
-            {{ user.name }}
-          </lable>
-          <lable class="grid-cell phone">{{ user.phoneNumber }}</lable>
-        </li>
-      </ul>
     </div>
   </div>
   <Teleport to="body">
@@ -44,9 +35,8 @@
 <script>
 import AddUserModal from "./AddUserModal.vue";
 import { useUsers } from "../composables/users";
-import { useModalControl } from "../composables/modalControl";
 import { useSort } from "../composables/sort";
-import { watch } from "@vue/runtime-core";
+import { useModalControl } from "../composables/modalControl";
 export default {
   components: {
     AddUserModal,
@@ -63,22 +53,6 @@ export default {
         value: "phoneNumber",
       },
     ];
-    const { userList } = useUsers();
-    watch(
-      userList,
-      () => {
-        console.log("ghj", userList);
-      },
-      { deep: true }
-    );
-    // const add = () => {
-    //   users.push({
-    //     id: 123,
-    //     name: "123",
-    //     phoneNumber: "123",
-    //     childs: [],
-    //   });
-    // };
 
     return {
       titles,

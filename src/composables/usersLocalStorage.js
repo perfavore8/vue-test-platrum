@@ -1,11 +1,21 @@
-// import { watch } from "vue";
-// import { useUsers } from "./users";
-// export function useUsersLocalStorage() {
-//   const { users } = useUsers();
+import { watch } from "vue";
+import { useUsers } from "./users";
+export function useUsersLocalStorage() {
+  const { users } = useUsers();
+  watch(
+    users,
+    () => {
+      saveUsersLocalStorage();
+    },
+    { deep: true }
+  );
 
-//   watch(users, () => saveUsersLocalStorage(), { deep: true });
+  const saveUsersLocalStorage = () =>
+    (localStorage.users = JSON.stringify(users));
+  const getUsersLocalStorage = () =>
+    localStorage.users === "undefined" || localStorage.users === undefined
+      ? null
+      : JSON.parse(localStorage.users);
 
-//   const saveUsersLocalStorage = () => localStorage.setItem("users", users);
-//   const getUsersLocalStorage = () => console.log(localStorage.getItem("users"));
-//   getUsersLocalStorage();
-// }
+  return { getUsersLocalStorage };
+}
